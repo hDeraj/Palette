@@ -1,1 +1,36 @@
-coming soon
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Palette by Jared Harkins</title>
+    <link href="normalize.css" rel="stylesheet" type="text/css" media="all">
+    <link href="style.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+  <body>
+    <div class="nav">
+        <div class="fileUpload btn btn-primary">
+            <span>Upload an Image</span>
+            <input type="file" class="upload" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+        </div>
+        <div class="btn calc" onclick="calcCentroids(3)">
+            <span>K=3</span>
+        </div>
+        <div class="btn calc" onclick="calcCentroids(4)">
+            <span>K=4</span>
+        </div>
+        <div class="btn calc" onclick="calcCentroids(5)">
+            <span>K=5</span>
+        </div>
+    </div>
+    <div class="center">
+        <div>
+            <canvas id="canvas" alt="Upload an image to get started"/>
+        </div>
+    </div>
+    <div class="hidden">
+        <img id="screencap" onload="updateCanvas()"></img>
+    </div>
+    <script src="KMeans.js"></script>
+    <script src="palette.js"></script>
+  </body>
+</html>
