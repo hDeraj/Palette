@@ -12,13 +12,22 @@
             <span>Upload an Image</span>
             <input type="file" class="upload" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
         </div>
-        <div class="btn calc" onclick="calcCentroids(3)">
+        <div class="btn calc" onclick="runQuantized(3)">
             <span>K=3</span>
         </div>
-        <div class="btn calc" onclick="calcCentroids(4)">
+        <div class="btn calc" onclick="runQuantized(4)">
             <span>K=4</span>
         </div>
-        <div class="btn calc" onclick="calcCentroids(5)">
+        <div class="btn calc" onclick="runQuantized(5)">
+            <span>K=5</span>
+        </div>
+        <div class="btn speck" onclick="runSpeckled(3)">
+            <span>K=3</span>
+        </div>
+        <div class="btn speck" onclick="runSpeckled(4)">
+            <span>K=4</span>
+        </div>
+        <div class="btn speck" onclick="runSpeckled(5)">
             <span>K=5</span>
         </div>
     </div>

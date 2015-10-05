@@ -1,5 +1,3 @@
-var kmeans;
-var palette = [];
 
 function setImage(s){
   var img = document.getElementById("screencap");
@@ -146,19 +144,20 @@ function calcCentroids(n){
   kmeans.chooseRandomCentroids();
   kmeans.cluster();
 
-  drawQuantized();
+  return kmeans;
 }
 
-function moveCentroids(){
-  for(var i=0; i<palette.length; i++){
-    kmeans.centroids[i].x = palette[i].rgb[0] * 255;
-    kmeans.centroids[i].y = palette[i].rgb[1] * 255;
-    kmeans.centroids[i].z = palette[i].rgb[2] * 255;
-  }
-  drawQuantized();
+function runQuantized(n){
+    var kmeans = calcCentroids(n)
+    drawQuantized(kmeans);
 }
 
-function drawQuantized(){
+function runSpeckled(n){
+    var kmeans = calcCentroids(n)
+    drawSpeckled(kmeans);
+}
+
+function drawQuantized(kmeans){
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext('2d');
   var imageData = context.createImageData(canvas.width,canvas.height);
@@ -170,4 +169,21 @@ function drawQuantized(){
     imageData.data[i*4+3] = 255;
   }
   context.putImageData(imageData,0,0);
+}
+
+function drawSpeckled(kmeans){
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext('2d');
+    var imageData = context.createImageData(canvas.width,canvas.height);
+    for(var i=0; i<kmeans.points.length; i++){
+      var cent1 = kmeans.points[i].centroid;
+      var cent2 = kmeans.points[i].centroid2;
+      var choice = Math.random() > 0.5 ? cent1 : cent2;
+      var cent = kmeans.centroids[choice];
+      imageData.data[i*4] = cent.x;
+      imageData.data[i*4+1] = cent.y;
+      imageData.data[i*4+2] = cent.z;
+      imageData.data[i*4+3] = 255;
+    }
+    context.putImageData(imageData,0,0);
 }
