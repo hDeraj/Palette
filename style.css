@@ -90,3 +90,15 @@ body {
     background-color: #ec971f;
     border-color: #d58512;
 }
+
+.speck {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.speck:hover {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
