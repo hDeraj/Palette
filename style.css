@@ -73,8 +73,20 @@ body {
     border-radius: 4px;
 }
 
+.btn:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
 .calc {
     color: #FFF;
     background-color: #F0AD4E;
     border-color: #EEA236;
+}
+
+.calc:hover {
+    color: #fff;
+    background-color: #ec971f;
+    border-color: #d58512;
 }
