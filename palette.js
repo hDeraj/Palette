@@ -127,16 +127,8 @@ function calcCentroids(n){
   }
   var raw = ctx.getImageData(0,0,img.width,img.height).data;
 
-  for(var i=0; i<img.width*img.height; i++){
-      unfiltered.push({
-        x: raw[i*4],
-        y: raw[i*4+1],
-        z: raw[i*4+2]
-      });
-  }
-
   kmeans = new KMeans();
-  kmeans.setPoints(unfiltered);
+  kmeans.setPoints(raw);
   kmeans.k = n;
   kmeans.maxIterations = 20;
   kmeans.maxWidth = 255;
@@ -161,11 +153,11 @@ function drawQuantized(kmeans){
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext('2d');
   var imageData = context.createImageData(canvas.width,canvas.height);
-  for(var i=0; i<kmeans.points.length; i++){
-    var cent = kmeans.centroids[kmeans.points[i].centroid];
-    imageData.data[i*4] = cent.x;
-    imageData.data[i*4+1] = cent.y;
-    imageData.data[i*4+2] = cent.z;
+  for(var i=0; i<kmeans.points.length/5; i++){
+    var cent = kmeans.points[i*5+3];
+    imageData.data[i*4] = kmeans.centroids[cent*4];
+    imageData.data[i*4+1] = kmeans.centroids[cent*4+1];
+    imageData.data[i*4+2] = kmeans.centroids[cent*4+2];
     imageData.data[i*4+3] = 255;
   }
   context.putImageData(imageData,0,0);
@@ -175,14 +167,13 @@ function drawSpeckled(kmeans){
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext('2d');
     var imageData = context.createImageData(canvas.width,canvas.height);
-    for(var i=0; i<kmeans.points.length; i++){
-      var cent1 = kmeans.points[i].centroid;
-      var cent2 = kmeans.points[i].centroid2;
+    for(var i=0; i<kmeans.points.length/5; i++){
+      var cent1 = kmeans.points[i*5+3];
+      var cent2 = kmeans.points[i*5+4];
       var choice = Math.random() > 0.5 ? cent1 : cent2;
-      var cent = kmeans.centroids[choice];
-      imageData.data[i*4] = cent.x;
-      imageData.data[i*4+1] = cent.y;
-      imageData.data[i*4+2] = cent.z;
+      imageData.data[i*4] = kmeans.centroids[choice*4];
+      imageData.data[i*4+1] = kmeans.centroids[choice*4+1];
+      imageData.data[i*4+2] = kmeans.centroids[choice*4+2];
       imageData.data[i*4+3] = 255;
     }
     context.putImageData(imageData,0,0);
