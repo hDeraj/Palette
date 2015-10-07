@@ -119,20 +119,17 @@ function calcCentroids(n){
   var img = document.getElementById("screencap");
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
-  ctx.drawImage(img, 0, 0, img.width, img.height);
   if(canvas.width !== img.width){
     canvas.width = img.width;
     canvas.height = img.height;
-    canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
   }
+  ctx.drawImage(img, 0, 0, img.width, img.height);
   var raw = ctx.getImageData(0,0,img.width,img.height).data;
 
   kmeans = new KMeans();
   kmeans.setPoints(raw);
   kmeans.k = n;
   kmeans.maxIterations = 20;
-  kmeans.maxWidth = 255;
-  kmeans.maxHeight = 255;
   kmeans.chooseRandomCentroids();
   kmeans.cluster();
 
@@ -170,7 +167,7 @@ function drawSpeckled(kmeans){
     for(var i=0; i<kmeans.points.length/5; i++){
       var cent1 = kmeans.points[i*5+3];
       var cent2 = kmeans.points[i*5+4];
-      var choice = Math.random() > 0.5 ? cent1 : cent2;
+      var choice = Math.random() > 0.1 ? cent1 : cent2;
       imageData.data[i*4] = kmeans.centroids[choice*4];
       imageData.data[i*4+1] = kmeans.centroids[choice*4+1];
       imageData.data[i*4+2] = kmeans.centroids[choice*4+2];

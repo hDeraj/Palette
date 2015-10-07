@@ -6,8 +6,6 @@ var KMeans = (function () {
 
   var kmeans = function () {
     this.kmpp = true;
-    this.maxWidth = 640;
-    this.maxHeight = 480;
     this.iterations = 0;
     this.converged = false;
     this.maxIterations = -1;
@@ -84,8 +82,6 @@ var KMeans = (function () {
 
   kmeans.prototype.iterate = function () {
     var i;
-    console.log("iterating: "+this.iterations + " , " + new Date());
-
     /** When the result doesn't change anymore, the final result has been found. */
     if (this.converged === true) {
       return;
@@ -93,22 +89,21 @@ var KMeans = (function () {
 
     this.converged = true;
 
-    ++this.iterations;
+    this.iterations++;
 
     /** Prepares the array of the sums */
 
     // items in form [x,y,z,items]
     var sums = new Array(this.k);
 
-    for (i = 0; i < this.k; ++i) {
+    for (i = 0; i < this.k; i++) {
       sums[i] = [0,0,0,0];
     }
 
     /** Find the closest centroid for each point */
-    for (i = 0, l = this.points.length/5; i < l; ++i) {
+    for (i = 0, l = this.points.length/5; i < l; i++) {
 
       var centroid = 0;
-      // distance(indexOfCentroid, indexOfPoint);
       var minDist = this.distance(0, i*5);
       var centroid2 = 1;
       var minDist2 = this.distance(1*4,i*5);
@@ -120,6 +115,7 @@ var KMeans = (function () {
           centroid2 = centroid;
           centroid = temp;
       }
+
       for(var j=2; j<this.centroids.length/4; j++){
         var dist = this.distance(j*4,i*5);
         if(dist < minDist){
@@ -134,9 +130,8 @@ var KMeans = (function () {
       }
 
       /**
-       * When the point is not attached to a centroid or the point was
-       * attached to some other centroid before, the result differs from the
-       * previous iteration.
+       * When the point was attached to some other centroid before,
+       * the result differs from the previous iteration.
        */
 
       if (this.points[i*5+3] !== centroid) {
@@ -160,7 +155,7 @@ var KMeans = (function () {
 
     /** Re-calculate the center of the centroid. */
 
-    for (i = 0; i < this.k; ++i) {
+    for (i = 0; i < this.k; i++) {
       if (sums[i][3] > 0) {
         this.centroids[i*4]   = sums[i][0] / sums[i][3];
         this.centroids[i*4+1] = sums[i][1] / sums[i][3];
