@@ -5,25 +5,31 @@
 
 body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    overflow:hidden;
 }
 
 .center {
     z-index: 2;
-    position:absolute;
+    position: absolute;
     top:0;
-    bottom:0;
     left:0;
-    right:0;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    right: 0;
+    bottom: 0;
     background:white;
     overflow: auto;
 }
 
-.hidden {
+.center > div {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
 
+.hidden {
+    position: absolute;
+    top: 0;
+    z-index: -1;
 }
 
 .nav {
