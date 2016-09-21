@@ -1,16 +1,14 @@
+var img = document.getElementById("img");
+var canvas = document.getElementById('canvas');
 
 function setImage(s){
-  var img = document.getElementById("screencap");
   img.src = s;
-  var canvas = document.getElementById('canvas');
   canvas.width = img.width;
   canvas.height = img.height;
   canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
 }
 
 function updateCanvas(){
-    var img = document.getElementById("screencap");
-    var canvas = document.getElementById('canvas');
     canvas.width = img.width;
     canvas.height = img.height;
     canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
@@ -107,7 +105,6 @@ function fileSelected(){
   if(file){
     var reader = new FileReader();
     reader.onload = function(e){
-      console.log(e);
       setImage(e.target.result);
     }
     reader.readAsDataURL(file);
@@ -116,8 +113,6 @@ function fileSelected(){
 
 function calcCentroids(n){
   var unfiltered = [];
-  var img = document.getElementById("screencap");
-  var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
   if(canvas.width !== img.width){
     canvas.width = img.width;
@@ -147,7 +142,6 @@ function runSpeckled(n){
 }
 
 function drawQuantized(kmeans){
-  var canvas = document.getElementById("canvas");
   var context = canvas.getContext('2d');
   var imageData = context.createImageData(canvas.width,canvas.height);
   for(var i=0; i<kmeans.points.length/5; i++){
@@ -161,7 +155,6 @@ function drawQuantized(kmeans){
 }
 
 function drawSpeckled(kmeans){
-    var canvas = document.getElementById("canvas");
     var context = canvas.getContext('2d');
     var imageData = context.createImageData(canvas.width,canvas.height);
     for(var i=0; i<kmeans.points.length/5; i++){
